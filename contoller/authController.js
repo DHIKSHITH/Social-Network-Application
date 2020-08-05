@@ -18,7 +18,6 @@ exports.protect = async (req, res, next) => {
       });
     }
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    console.log(decoded);
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
       res.status(400).json({
