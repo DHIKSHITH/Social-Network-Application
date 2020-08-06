@@ -18,7 +18,7 @@ exports.protect = async (req, res, next) => {
       });
     }
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    const currentUser = await User.findById(decoded.id);
+    const currentUser = await User.findById(decoded.id).select("-password");
     if (!currentUser) {
       res.status(400).json({
         status: "fail",
@@ -26,8 +26,10 @@ exports.protect = async (req, res, next) => {
       });
     }
     req.user = currentUser;
+    res.json(currentUser);
     next();
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "fail",
       err: err,

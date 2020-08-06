@@ -10,15 +10,13 @@ exports.signup = async (req, res, next) => {
     res.status(201).json({
       status: "success",
       token,
-      data: {
-        user: user,
-      },
+      data: user,
     });
   } catch (err) {
     console.log(err.message);
     res.status(400).json({
       status: "fail",
-      error: err,
+      error: err.message,
     });
   }
 };

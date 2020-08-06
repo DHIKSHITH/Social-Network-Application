@@ -10,7 +10,7 @@ const alert = ({ alerts }) =>
     </div>
   ));
 
-alert.PropTypes = {
+alert.propTypes = {
   alerts: PropTypes.array.isRequired,
 };
 
