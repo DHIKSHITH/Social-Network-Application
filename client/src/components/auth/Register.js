@@ -1,24 +1,38 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
-import { register } from "../../actions/auth";
+import { register, Gregister } from "../../actions/auth";
+import { GoogleLogin } from "react-google-login";
 import PropTypes from "prop-types";
 
 // import axios from "axios";
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ setAlert, register, isAuthenticated, Gregister }) => {
   const [formData, setformData] = useState({
     name: "",
     email: "",
     password: "",
     passwordConfirm: "",
   });
+  const [googleData, setGoogleData] = useState({
+    gname: null,
+    gemail: null,
+    gurl: null,
+    redirect: false,
+  });
+  useEffect(() => {
+    if (googleData.gname === null) {
+      return;
+    } else {
+      Gregister(googleData.gname, googleData.gemail, googleData.gurl);
+    }
+  }, [googleData]);
   const { name, email, password, passwordConfirm } = formData;
   const onchange = (e) =>
     setformData({ ...formData, [e.target.name]: e.target.value });
 
-  const onsubmit = async (e) => {
+  const onsubmit = (e) => {
     e.preventDefault();
     if (password !== passwordConfirm) {
       setAlert("password not match", "danger");
@@ -40,8 +54,24 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       //   }
     }
   };
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    const Name = profile.getName();
+    const ImageURL = profile.getImageUrl();
+    const Email = profile.getEmail();
+    setGoogleData({
+      gname: Name,
+      gemail: Email,
+      gurl: ImageURL,
+      redirect: true,
+    });
+  }
+
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
+  }
+  if (googleData.redirect) {
+    return <Redirect to="/password" />;
   }
   return (
     <Fragment>
@@ -102,16 +132,25 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <p className="my-1">
         Already have an account? <Link to="/login">Sign In</Link>
       </p>
+      <GoogleLogin
+        clientId="317821198108-j5a7urpncd2f0bdbiadhv5oe17smpcrd.apps.googleusercontent.com"
+        buttonText="Sign up with Google"
+        onSuccess={onSignIn}
+        cookiePolicy={"single_host_origin"}
+      />
     </Fragment>
   );
 };
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  Gregister: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(mapStateToProps, { setAlert, register, Gregister })(
+  Register
+);

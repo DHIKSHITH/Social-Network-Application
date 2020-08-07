@@ -8,6 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  GREGISTER_SUCCESS,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -44,6 +45,29 @@ export const register = ({ name, email, password, passwordConfirm }) => async (
       payload: res.data,
     });
     dispatch(loadUser());
+  } catch (err) {
+    console.log(err.response);
+    const errors = err.response.data.error;
+    if (errors) {
+      dispatch(setAlert(errors, "danger"));
+    }
+    dispatch({
+      type: REGISTER_FAIL,
+    });
+  }
+};
+export const Gregister = (gname, gemail, gurl) => async (dispatch) => {
+  try {
+    const newUser = {
+      gname,
+      gemail,
+      gurl,
+    };
+    console.log(gname);
+    dispatch({
+      type: GREGISTER_SUCCESS,
+      payload: newUser,
+    });
   } catch (err) {
     console.log(err.response);
     const errors = err.response.data.error;
