@@ -29,7 +29,7 @@ const Gregister = ({ register, setAlert, payload }) => {
     <Fragment>
       <h1 className="large text-primary">Create a Password</h1>
       <p className="lead">
-        <i className="fas fa-user"></i> Create Your Account
+        <i className="fas fa-user"></i> Hello hi {name}.Please create a password
       </p>
       <form
         className="form"
