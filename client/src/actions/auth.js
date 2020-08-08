@@ -11,6 +11,7 @@ import {
   GREGISTER_SUCCESS,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { Redirect } from "react-router-dom";
 
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {

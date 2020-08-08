@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { register } from "../../actions/auth";
 import { setAlert } from "../../actions/alert";
 import PropTypes from "prop-types";
 
-const Gregister = ({ register, setAlert, payload }) => {
+const Gregister = ({ register, setAlert, payload, isAuthenticated }) => {
   const [data, setdata] = useState({
     password: "",
     passwordConfirm: "",
@@ -25,6 +26,9 @@ const Gregister = ({ register, setAlert, payload }) => {
       register({ name, email, password, passwordConfirm });
     }
   };
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <Fragment>
       <h1 className="large text-primary">Create a Password</h1>
@@ -68,5 +72,6 @@ Gregister.propTypes = {
 
 const mapStateToProps = (state) => ({
   payload: state.gregister,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 export default connect(mapStateToProps, { register, setAlert })(Gregister);
