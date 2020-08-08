@@ -26,6 +26,7 @@ exports.createprofile = async (req, res, next) => {
 
   if (!profile) {
     const profile = await Profile.create(profileFields);
+    console.log(profile);
     res.status(200).json({
       status: "success",
       data: profile,
@@ -80,17 +81,47 @@ exports.getProfile = async (req, res, next) => {
     });
   }
 };
-
-exports.deleteProfile = async (req, res, next) => {
-  const profile = await Profile.findOneAndDelete({ user: req.user.id });
-  if (!profile) {
-    return res.status(400).json({
-      msg: "no profile to delete",
+exports.getMe = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.user.id,
+    }).populate("user", ["name"]);
+    if (!profile) {
+      return res.status(400).json({
+        status: "theres no profile with this user",
+      });
+    }
+    res.status(200).json({
+      profile,
+    });
+  } catch (err) {
+    if (err.kind == "ObjectId") {
+      return res.status(400).json({ msg: "profile not found" });
+    }
+    res.status(400).json({
+      status: "fail",
+      err: err,
     });
   }
-  res.status(200).json({
-    status: "successfully deleted",
-  });
+};
+
+exports.deleteProfile = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOneAndDelete({ user: req.user.id });
+    if (!profile) {
+      return res.status(400).json({
+        msg: "no profile to delete",
+      });
+    }
+    return res.status(200).json({
+      status: "successfully deleted",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      msg: err,
+    });
+  }
 };
 
 exports.addExperience = async (req, res, next) => {

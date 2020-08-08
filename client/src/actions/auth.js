@@ -9,9 +9,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   GREGISTER_SUCCESS,
+  CLEAR_PROFILE,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
-import { Redirect } from "react-router-dom";
 
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -21,7 +21,7 @@ export const loadUser = () => async (dispatch) => {
     const res = await axios.get("/api/v1/user/protect");
     dispatch({
       type: USER_LOADED,
-      payload: res.data,
+      payload: res,
     });
   } catch (err) {
     dispatch({
@@ -105,5 +105,6 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };

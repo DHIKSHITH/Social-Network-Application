@@ -26,7 +26,6 @@ exports.protect = async (req, res, next) => {
       });
     }
     req.user = currentUser;
-    res.json(currentUser);
     next();
   } catch (err) {
     console.log(err);

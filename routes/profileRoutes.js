@@ -15,6 +15,7 @@ profileRouter
 profileRouter
   .route("/user/:user_id")
   .get(authController.protect, profilecontroller.getProfile);
+profileRouter.route("/me").get(authController.protect, profilecontroller.getMe);
 profileRouter
   .route("/delete")
   .delete(authController.protect, profilecontroller.deleteProfile);
