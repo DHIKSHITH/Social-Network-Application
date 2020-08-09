@@ -1,4 +1,6 @@
 const User = require("../model/usermodel");
+const Profile = require("../model/profilemodel");
+const Post = require("../model/postmodel");
 const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res, next) => {
@@ -48,6 +50,23 @@ exports.login = async (req, res, next) => {
       },
     });
   } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      error: err,
+    });
+  }
+};
+
+exports.deleteAccount = async (req, res, next) => {
+  try {
+    await Profile.findOneAndDelete({ user: req.user.id });
+    await Post.deleteMany({ user: req.user.id });
+    await User.findOneAndDelete({ _id: req.user.id });
+    res.status(200).json({
+      msg: "user deleted",
+    });
+  } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "fail",
       error: err,

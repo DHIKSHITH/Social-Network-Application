@@ -29,7 +29,7 @@ exports.createprofile = async (req, res, next) => {
     console.log(profile);
     res.status(200).json({
       status: "success",
-      data: profile,
+      profile,
     });
   }
   profile = await Profile.findOneAndUpdate(
@@ -39,7 +39,7 @@ exports.createprofile = async (req, res, next) => {
   );
   res.status(200).json({
     status: "updated success",
-    data: profile,
+    profile,
   });
 };
 
@@ -136,7 +136,9 @@ exports.addExperience = async (req, res, next) => {
     }
     profile.experience.unshift(newExp);
     await profile.save();
-    res.json(profile);
+    res.status(200).json({
+      profile,
+    });
   } catch (err) {
     console.log(err);
     res.status(400).json({
@@ -154,6 +156,7 @@ exports.deleteExperience = async (req, res, next) => {
     profile.experience.splice(removeIndex, 1);
     await profile.save();
     res.status(200).json({
+      profile,
       msg: "experience deleted",
     });
   } catch (err) {
@@ -175,7 +178,9 @@ exports.addEducation = async (req, res, next) => {
     }
     profile.education.unshift(newEdu);
     await profile.save();
-    res.json(profile);
+    res.status(200).json({
+      profile,
+    });
   } catch (err) {
     console.log(err);
     res.status(400).json({
@@ -193,6 +198,7 @@ exports.deleteEducation = async (req, res, next) => {
     profile.education.splice(removeIndex, 1);
     await profile.save();
     res.status(200).json({
+      profile,
       msg: "education deleted",
     });
   } catch (err) {
