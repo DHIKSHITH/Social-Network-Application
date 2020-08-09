@@ -48,7 +48,7 @@ exports.getAllProfile = async (req, res, next) => {
     const profiles = await Profile.find().populate("user", ["name"]);
     res.status(200).json({
       status: "success",
-      data: profiles,
+      profiles,
     });
   } catch (err) {
     res.status(400).json({
@@ -69,7 +69,7 @@ exports.getProfile = async (req, res, next) => {
     }
     res.status(200).json({
       status: "success",
-      data: profile,
+      profile,
     });
   } catch (err) {
     if (err.kind == "ObjectId") {

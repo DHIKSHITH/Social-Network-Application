@@ -5,6 +5,7 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   ACCOUNT_DELETE,
+  GET_PROFILES,
 } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -12,6 +13,23 @@ export const getCurrentProfile = () => async (dispatch) => {
     const res = await axios.get(`/api/v1/profile/me`);
     dispatch({
       type: GET_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response, status: err.response },
+    });
+  }
+};
+
+export const getProfiles = () => async (dispatch) => {
+  // dispatch({ type: CLEAR_PROFILE });
+
+  try {
+    const res = await axios.get(`/api/v1/profile/findAll`);
+    dispatch({
+      type: GET_PROFILES,
       payload: res.data,
     });
   } catch (err) {
@@ -40,6 +58,21 @@ export const createProfile = (FormData, history, edit = false) => async (
     if (errors) {
       dispatch(setAlert(errors, "danger"));
     }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response, status: err.response },
+    });
+  }
+};
+
+export const getProfileById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/profile//user/:${userId}`);
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data,
+    });
+  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response, status: err.response },
@@ -131,7 +164,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm("Are you sure?This cant be undone")) {
     try {
-      const res = await axios.delete(`api/v1/user/delete`);
+      await axios.delete(`api/v1/user/delete`);
       dispatch({
         type: ACCOUNT_DELETE,
       });

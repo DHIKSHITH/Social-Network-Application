@@ -27,7 +27,7 @@ const Register = ({ setAlert, register, isAuthenticated, Gregister }) => {
     } else {
       Gregister(googleData.gname, googleData.gemail, googleData.gurl);
     }
-  }, [googleData]);
+  }, [googleData, Gregister]);
   const { name, email, password, passwordConfirm } = formData;
   const onchange = (e) =>
     setformData({ ...formData, [e.target.name]: e.target.value });
