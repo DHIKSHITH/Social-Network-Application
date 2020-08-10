@@ -1,4 +1,4 @@
-import { GREGISTER_SUCCESS } from "../actions/types";
+import { GREGISTER_SUCCESS, LOGOUT } from "../actions/types";
 const initialState = {};
 
 export default function (state = initialState, action) {
@@ -6,6 +6,12 @@ export default function (state = initialState, action) {
   switch (type) {
     case GREGISTER_SUCCESS:
       return { ...state, payload };
+    case LOGOUT:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        state: null,
+      };
 
     default:
       return state;

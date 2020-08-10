@@ -16,6 +16,7 @@ const Gregister = ({ register, setAlert, payload, isAuthenticated }) => {
   console.log(payload);
   const name = payload.payload.gname;
   const email = payload.payload.gemail;
+  const url = payload.payload.gurl;
 
   const onsubmit = (e) => {
     console.log(password);
