@@ -29,39 +29,18 @@ const EditProfile = ({
     getCurrentProfile();
 
     setFormData({
-      website:
-        loading || !profile.profile.website ? "" : profile.profile.website,
-      city: loading || !profile.profile.city ? "" : profile.profile.city,
-      status: loading || !profile.profile.status ? "" : profile.profile.status,
-      skills:
-        loading || !profile.profile.skills
-          ? ""
-          : profile.profile.skills.join(","),
+      website: loading || !profile.website ? "" : profile.website,
+      city: loading || !profile.city ? "" : profile.city,
+      status: loading || !profile.status ? "" : profile.status,
+      skills: loading || !profile.skills ? "" : profile.skills.join(","),
       githubusername:
-        loading || !profile.profile.githubusername
-          ? ""
-          : profile.profile.githubusername,
-      about: loading || !profile.profile.about ? "" : profile.profile.about,
-      twitter:
-        loading || !profile.profile.social
-          ? ""
-          : profile.profile.social.twitter,
-      facebook:
-        loading || !profile.profile.social
-          ? ""
-          : profile.profile.social.facebook,
-      linkedin:
-        loading || !profile.profile.social
-          ? ""
-          : profile.profile.social.linkedin,
-      youtube:
-        loading || !profile.profile.social
-          ? ""
-          : profile.profile.social.youtube,
-      instagram:
-        loading || !profile.profile.social
-          ? ""
-          : profile.profile.social.instagram,
+        loading || !profile.githubusername ? "" : profile.githubusername,
+      about: loading || !profile.about ? "" : profile.about,
+      twitter: loading || !profile.social ? "" : profile.social.twitter,
+      facebook: loading || !profile.social ? "" : profile.social.facebook,
+      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+      youtube: loading || !profile.social ? "" : profile.social.youtube,
+      instagram: loading || !profile.social ? "" : profile.social.instagram,
     });
   }, [loading, getCurrentProfile]);
 

@@ -6,6 +6,7 @@ import {
   UPDATE_PROFILE,
   ACCOUNT_DELETE,
   GET_PROFILES,
+  CLEAR_PROFILE,
 } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -13,7 +14,7 @@ export const getCurrentProfile = () => async (dispatch) => {
     const res = await axios.get(`/api/v1/profile/me`);
     dispatch({
       type: GET_PROFILE,
-      payload: res.data,
+      payload: res.data.profile,
     });
   } catch (err) {
     dispatch({
@@ -24,13 +25,13 @@ export const getCurrentProfile = () => async (dispatch) => {
 };
 
 export const getProfiles = () => async (dispatch) => {
-  // dispatch({ type: CLEAR_PROFILE });
+  dispatch({ type: CLEAR_PROFILE });
 
   try {
     const res = await axios.get(`/api/v1/profile/findAll`);
     dispatch({
       type: GET_PROFILES,
-      payload: res.data,
+      payload: res.data.profiles,
     });
   } catch (err) {
     dispatch({
@@ -47,7 +48,7 @@ export const createProfile = (FormData, history, edit = false) => async (
     const res = await axios.post("/api/v1/profile/create", FormData);
     dispatch({
       type: GET_PROFILE,
-      payload: res.data,
+      payload: res.data.profile,
     });
     dispatch(setAlert(edit ? "profile updated" : "profile created", "success"));
     if (!edit) {
@@ -67,10 +68,10 @@ export const createProfile = (FormData, history, edit = false) => async (
 
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/v1/profile//user/:${userId}`);
+    const res = await axios.get(`/api/v1/profile/user/${userId}`);
     dispatch({
-      type: GET_PROFILES,
-      payload: res.data,
+      type: GET_PROFILE,
+      payload: res.data.profile,
     });
   } catch (err) {
     dispatch({
@@ -85,7 +86,7 @@ export const addExperience = (FormData, history) => async (dispatch) => {
     const res = await axios.put("/api/v1/profile/addExperience", FormData);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data.profile,
     });
     dispatch(setAlert("Experience Added", "success"));
 
@@ -106,7 +107,7 @@ export const addEducation = (FormData, history) => async (dispatch) => {
     const res = await axios.put("/api/v1/profile/addEducation", FormData);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data.profile,
     });
     dispatch(setAlert("Education Added", "success"));
 
@@ -128,7 +129,7 @@ export const deleteExperience = (id) => async (dispatch) => {
     const res = await axios.delete(`api/v1/profile/experience/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data.profile,
     });
     dispatch(setAlert("Experience removed", "success"));
   } catch (err) {
@@ -147,7 +148,7 @@ export const deleteEducation = (id) => async (dispatch) => {
     const res = await axios.delete(`api/v1/profile/education/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data,
+      payload: res.data.profile,
     });
     dispatch(setAlert("Education removed", "success"));
   } catch (err) {
