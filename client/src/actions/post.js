@@ -140,10 +140,7 @@ export const getPost = (id) => async (dispatch) => {
 
 export const addComment = (postId, formData) => async (dispatch) => {
   try {
-    const post = {
-      text: formData,
-    };
-    const res = await axios.post(`/api/v1/post/comment/${postId}`, post);
+    const res = await axios.post(`/api/v1/post/comment/${postId}`, formData);
     dispatch({
       type: ADD_COMMENT,
       payload: res.comment,
