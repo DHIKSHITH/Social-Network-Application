@@ -120,10 +120,11 @@ exports.createComment = async (req, res, next) => {
       user: req.user.id,
       name: req.user.name,
     };
-    post.comments.unshift(newComment);
+    const comment = post.comments.unshift(newComment);
     await post.save();
     res.status(200).json({
       msg: "comment created",
+      comment,
     });
   } catch (err) {
     console.log(err);

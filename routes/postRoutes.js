@@ -15,9 +15,9 @@ postRouter
   .delete(authController.protect, postController.deletePost);
 postRouter
   .route("/like/:post_id")
-  .post(authController.protect, postController.like);
+  .put(authController.protect, postController.like);
 postRouter
-  .route("/like/:post_id")
+  .route("/unlike/:post_id")
   .put(authController.protect, postController.unlike);
 postRouter
   .route("/comment/:post_id/:comment_id")
