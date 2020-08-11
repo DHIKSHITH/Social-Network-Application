@@ -40,7 +40,6 @@ export const addLike = (id) => async (dispatch) => {
       payload: { id, likes: res.data.like },
     });
   } catch (err) {
-    console.log(err);
     const errors = err.response;
 
     if (errors) {
@@ -119,7 +118,6 @@ export const addPost = (formData) => async (dispatch) => {
 export const getPost = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/v1/post/${id}`);
-    console.log(res);
     dispatch({
       type: GET_POST,
       payload: res.data,
@@ -141,7 +139,6 @@ export const getPost = (id) => async (dispatch) => {
 export const addComment = (postId, formData) => async (dispatch) => {
   try {
     const res = await axios.post(`/api/v1/post/comment/${postId}`, formData);
-    console.log(res);
     dispatch({
       type: ADD_COMMENT,
       payload: res.data.comments,

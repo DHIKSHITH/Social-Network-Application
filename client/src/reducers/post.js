@@ -58,7 +58,6 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case ADD_COMMENT: {
-      console.log(payload);
       return {
         ...state,
 
