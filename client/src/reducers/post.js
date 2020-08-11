@@ -58,8 +58,10 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case ADD_COMMENT: {
+      console.log(payload);
       return {
         ...state,
+
         post: { ...state.post, comments: payload },
         loading: false,
       };
