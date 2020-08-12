@@ -83,7 +83,16 @@ exports.like = async (req, res, next) => {
       return res.status(400).json({ msg: "post already liked" });
     }
     post.like.unshift({ user: req.user.id });
+    const userId = req.user.id;
+    const postUser = post.user;
+    const postId = post._id;
+    const profile = await Profile.findOne({ user: postUser });
+    profile.notification.unshift({
+      post: postId,
+      user: userId,
+    });
     await post.save();
+    await profile.save();
     res.json({ like: post.like });
   } catch (err) {
     console.log(err);

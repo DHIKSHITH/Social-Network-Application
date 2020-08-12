@@ -74,6 +74,18 @@ const profileschema = new mongoose.Schema({
       },
     },
   ],
+  notification: [
+    {
+      post: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Post",
+      },
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    },
+  ],
   social: {
     youtube: {
       type: String,
