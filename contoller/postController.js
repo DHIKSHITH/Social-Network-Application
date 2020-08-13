@@ -83,12 +83,13 @@ exports.like = async (req, res, next) => {
       return res.status(400).json({ msg: "post already liked" });
     }
     post.like.unshift({ user: req.user.id });
-    const userId = req.user.id;
+    const userId = req.user.name;
     const postUser = post.user;
     const postId = post._id;
     const profile = await Profile.findOne({ user: postUser });
     profile.notification.unshift({
       post: postId,
+      type: "liked",
       user: userId,
     });
     await post.save();
@@ -130,8 +131,19 @@ exports.createComment = async (req, res, next) => {
       name: req.user.name,
     };
     const comment = post.comments.unshift(newComment);
+    const userId = req.user.name;
+    const postUser = post.user;
+    const postId = post._id;
+    const profile = await Profile.findOne({ user: postUser });
+    profile.notification.unshift({
+      post: postId,
+      type: "commented",
+      user: userId,
+    });
     comments = post.comments;
     await post.save();
+    await profile.save();
+
     res.status(200).json({
       msg: "comment created",
       comments,

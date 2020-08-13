@@ -81,8 +81,10 @@ const profileschema = new mongoose.Schema({
         ref: "Post",
       },
       user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
+        type: String,
+      },
+      type: {
+        type: String,
       },
     },
   ],
