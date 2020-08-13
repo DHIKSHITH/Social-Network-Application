@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import "./Dropdow.css";
 import { logout } from "../../actions/auth";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownItem from "./DropdownItem";
@@ -27,9 +28,7 @@ const NavBar = ({
       </li>
       <li>
         <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            Notification
-          </Dropdown.Toggle>
+          <Dropdown.Toggle id="dropdown-basic">Notification</Dropdown.Toggle>
 
           <Dropdown.Menu>
             <ul style={{ display: "flex", flexDirection: "column" }}>
@@ -40,6 +39,13 @@ const NavBar = ({
                 ))}
             </ul>
           </Dropdown.Menu>
+          <span>
+            {!loading &&
+              profile !== null &&
+              profile.notification.length > 0 && (
+                <span className="noti-num">{profile.notification.length}</span>
+              )}
+          </span>
         </Dropdown>
       </li>
       <li>

@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
-// import spinner from "./spinner.gif";
+import Loading from "react-bootstrap/Spinner";
 
 export const Spinner = () => (
   <Fragment>
-    <img
-      src=""
-      style={{ width: "200px", margin: "auto", display: "block" }}
-      alt="Loading..."
-    ></img>
+    <Loading animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Loading>
   </Fragment>
 );
