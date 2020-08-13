@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownItem from "./DropdownItem";
 
-const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const NavBar = ({
+  auth: { isAuthenticated, loading },
+  profile: { profile },
+  logout,
+}) => {
   const authLinks = (
     <ul>
       <li>
@@ -18,6 +24,23 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <i className="fas fa-user"></i>{" "}
           <span className="hide=sm">Dashboard</span>
         </Link>
+      </li>
+      <li>
+        <Dropdown>
+          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+            Notification
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <ul style={{ display: "flex", flexDirection: "column" }}>
+              {!loading &&
+                profile !== null &&
+                profile.notification.map((noti) => (
+                  <DropdownItem key={noti._id} notification={noti} />
+                ))}
+            </ul>
+          </Dropdown.Menu>
+        </Dropdown>
       </li>
       <li>
         <Link onClick={logout} to="#!">
@@ -56,9 +79,11 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
 NavBar.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { logout })(NavBar);
