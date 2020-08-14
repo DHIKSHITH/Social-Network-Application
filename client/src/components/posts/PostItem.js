@@ -24,8 +24,7 @@ const PostItem = ({
       <div>
         <p className="my-1">{text}</p>
         <p className="post-date">
-          Posted On
-          <Moment format="YYYY/MM/DD"> {date}</Moment>{" "}
+          Posted On <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
         {showActions && (
           <Fragment>
