@@ -24,11 +24,11 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
-export const getProfiles = () => async (dispatch) => {
+export const getProfiles = (page) => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
 
   try {
-    const res = await axios.get(`/api/v1/profile/findAll`);
+    const res = await axios.get(`/api/v1/profile/findAll?page=${page}&limit=1`);
     dispatch({
       type: GET_PROFILES,
       payload: res.data.profiles,
