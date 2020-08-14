@@ -5,6 +5,10 @@ const profileschema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },
+  name: {
+    type: String,
+    lowercase: true,
+  },
   city: {
     type: String,
     required: [true, "can you pls say where you leave"],
@@ -110,6 +114,8 @@ const profileschema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+profileschema.index({ name: "text" });
 
 const Profile = mongoose.model("profile", profileschema);
 

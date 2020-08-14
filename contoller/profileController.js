@@ -2,6 +2,7 @@ const Profile = require("../model/profilemodel");
 
 exports.createprofile = async (req, res, next) => {
   const profileFields = {};
+  profileFields.userName = req.user.name;
   profileFields.user = req.user.id;
   if (req.body.city) profileFields.city = req.body.city;
   if (req.body.website) profileFields.website = req.body.website;
@@ -45,12 +46,31 @@ exports.createprofile = async (req, res, next) => {
 
 exports.getAllProfile = async (req, res, next) => {
   try {
-    const profiles = await Profile.find().populate("user", ["name"]);
-    res.status(200).json({
-      status: "success",
-      profiles,
-    });
+    if (req.query.name) {
+      const profiles = await Profile.find({
+        $text: { $search: req.query.name, $caseSensitive: false },
+      }).populate("user", ["name"]);
+      res.status(200).json({
+        status: "success",
+        length: profiles.length,
+        profiles,
+      });
+    } else {
+      const page = req.query.page * 1 || 1;
+      const limit = req.query.limit * 1 || 10;
+      const skip = (page - 1) * limit;
+      const profiles = await Profile.find()
+        .skip(skip)
+        .limit(limit)
+        .populate("user", ["name"]);
+      res.status(200).json({
+        status: "success",
+        length: profiles.length,
+        profiles,
+      });
+    }
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "fail",
     });
