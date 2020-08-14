@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getProfiles } from "../../actions/profile";
@@ -7,9 +7,23 @@ import { Spinner } from "../layout/Spinner";
 import ProfileItem from "./ProfileItem";
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [value, setValue] = useState("");
+
   useEffect(() => {
-    getProfiles(1);
-  }, [getProfiles]);
+    getProfiles(currentPage, value);
+  }, [getProfiles, currentPage]);
+  const onPreclickHandler = () => {
+    if (currentPage === 1) {
+      return null;
+    } else {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const onNextClickHandler = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -21,6 +35,10 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             <i className="fab fa-connectdevelop"></i> Browse and connect with
             developers
           </p>
+          <input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          ></input>
           <div className="profiles">
             {profiles.length > 0 ? (
               profiles.map((profile) => (
@@ -30,6 +48,9 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               <h4>no profiles found</h4>
             )}
           </div>
+
+          <button onClick={onPreclickHandler}>previous</button>
+          <button onClick={onNextClickHandler}>next</button>
         </Fragment>
       )}
     </Fragment>

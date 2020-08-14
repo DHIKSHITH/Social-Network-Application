@@ -24,7 +24,7 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
-export const getProfiles = (page) => async (dispatch) => {
+export const getProfiles = (page, value) => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
 
   try {
