@@ -30,9 +30,10 @@ export const getProfiles = (page, value) => async (dispatch) => {
   try {
     const res = await axios.get(
       `/api/v1/profile/findAll?${
-        value === "" ? null : `$name=${value}&`
-      }page=${page}&limit=1`
+        value === "" ? `page=${page}&limit=5` : `name=${value}`
+      }`
     );
+
     dispatch({
       type: GET_PROFILES,
       payload: res.data.profiles,
