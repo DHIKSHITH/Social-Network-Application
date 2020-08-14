@@ -57,7 +57,7 @@ exports.getAllProfile = async (req, res, next) => {
       });
     } else {
       const page = req.query.page * 1 || 1;
-      const limit = req.query.limit * 1 || 10;
+      const limit = req.query.limit * 1 || 5;
       const skip = (page - 1) * limit;
       const profiles = await Profile.find()
         .skip(skip)
