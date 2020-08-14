@@ -12,7 +12,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 
   useEffect(() => {
     getProfiles(currentPage, value);
-  }, [getProfiles, currentPage]);
+  }, [getProfiles, currentPage, value]);
   const onPreclickHandler = () => {
     if (currentPage === 1) {
       return null;
