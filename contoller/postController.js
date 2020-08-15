@@ -26,7 +26,9 @@ exports.createPost = async (req, res, next) => {
 
 exports.getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find().sort({ date: -1 });
+    const posts = await Post.find()
+      .populate("user", ["avatar"])
+      .sort({ date: -1 });
     res.json(posts);
   } catch (err) {
     console.log(err);
@@ -35,7 +37,9 @@ exports.getPosts = async (req, res, next) => {
 };
 exports.getPost = async (req, res, next) => {
   try {
-    const posts = await Post.findById(req.params.post_id).sort({ date: -1 });
+    const posts = await Post.findById(req.params.post_id)
+      .populate("user", ["avatar"])
+      .sort({ date: -1 });
     if (!posts) {
       return res.status(404).json({
         msg: "post not found",
@@ -128,6 +132,7 @@ exports.createComment = async (req, res, next) => {
     const newComment = {
       text: req.body.text,
       user: req.user.id,
+      avatar: req.user.avatar,
       name: req.user.name,
     };
     const comment = post.comments.unshift(newComment);

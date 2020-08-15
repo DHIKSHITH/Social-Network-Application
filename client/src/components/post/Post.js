@@ -16,6 +16,7 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
     [getPost],
     match.params.id
   );
+
   return loading || post === null ? (
     <Spinner />
   ) : (
@@ -23,11 +24,16 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
       <Link to="/posts" className="btn">
         Back to posts
       </Link>
-      <PostItem post={post} showActions={false} />
+      <PostItem post={post} avatar={post.user.avatar} showActions={false} />
       <CommentForm postId={post._id} />
       <div className="comments">
         {post.comments.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} postId={post._id} />
+          <CommentItem
+            key={comment._id}
+            avatar={comment.avatar}
+            comment={comment}
+            postId={post._id}
+          />
         ))}
       </div>
     </Fragment>

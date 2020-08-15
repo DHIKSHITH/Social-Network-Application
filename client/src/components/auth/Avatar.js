@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 
@@ -36,28 +36,44 @@ const Avatar = ({ register, payload: { payload }, isAuthenticated }) => {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <div>
-      <img
-        src="https://cdn2.vectorstock.com/i/1000x1000/17/61/male-avatar-profile-picture-vector-10211761.jpg"
-        alt="avatar"
-        onClick={(e) => onClick(e)}
-      ></img>
-      <img
-        src="https://www.kindpng.com/picc/m/24-248442_female-user-avatar-woman-profile-member-user-profile.png"
-        alt="avatar"
-        onClick={(e) => onClick(e)}
-      ></img>
-      <img
-        src="https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg"
-        alt="avatar"
-        onClick={(e) => onClick(e)}
-      ></img>
-      <img
-        src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/128009228/original/8e8ad34b012b46ebd403bd4157f8fef6bb2c076b/design-minimalist-flat-cartoon-caricature-avatar-in-6-hours.jpg"
-        alt="avatar"
-        onClick={(e) => onClick(e)}
-      ></img>
-    </div>
+    <Fragment>
+      <h1 className="large text-primary">
+        Pls choose a avatar for profile pic
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "space-evenly",
+          marginTop: "7rem",
+        }}
+      >
+        <img
+          style={{ height: "10rem", width: "10rem", cursor: "pointer" }}
+          src="https://cdn2.vectorstock.com/i/1000x1000/17/61/male-avatar-profile-picture-vector-10211761.jpg"
+          alt="avatar"
+          onClick={(e) => onClick(e)}
+        ></img>
+        <img
+          style={{ height: "10rem", width: "10rem", cursor: "pointer" }}
+          src="https://www.kindpng.com/picc/m/24-248442_female-user-avatar-woman-profile-member-user-profile.png"
+          alt="avatar"
+          onClick={(e) => onClick(e)}
+        ></img>
+        <img
+          style={{ height: "10rem", width: "10rem", cursor: "pointer" }}
+          src="https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg"
+          alt="avatar"
+          onClick={(e) => onClick(e)}
+        ></img>
+        <img
+          style={{ height: "10rem", width: "10rem", cursor: "pointer" }}
+          src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/128009228/original/8e8ad34b012b46ebd403bd4157f8fef6bb2c076b/design-minimalist-flat-cartoon-caricature-avatar-in-6-hours.jpg"
+          alt="avatar"
+          onClick={(e) => onClick(e)}
+        ></img>
+      </div>
+    </Fragment>
   );
 };
 

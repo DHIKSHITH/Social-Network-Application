@@ -25,6 +25,9 @@ const PostSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: "User",
       },
+      avatar: {
+        type: String,
+      },
       text: {
         type: String,
         required: true,
