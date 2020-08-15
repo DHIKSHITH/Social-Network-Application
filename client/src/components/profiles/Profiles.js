@@ -35,10 +35,21 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             <i className="fab fa-connectdevelop"></i> Browse and connect with
             developers
           </p>
-          <input
+          <form action="#" class="search">
+            <input
+              type="text"
+              class="search__input"
+              placeholder="Search by Full Name"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            />
+          </form>
+          {/* <input
             value={value}
             onChange={(e) => setValue(e.target.value)}
-          ></input>
+            placeholder="Please enter the first name"
+            
+          ></input> */}
           <div className="profiles">
             {profiles.length > 0 ? (
               profiles.map((profile) => (
