@@ -35,7 +35,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             <i className="fab fa-connectdevelop"></i> Browse and connect with
             developers
           </p>
-          <form action="#" class="search">
+          <form class="search">
             <input
               type="text"
               class="search__input"
@@ -48,7 +48,6 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="Please enter the first name"
-            
           ></input> */}
           <div className="profiles">
             {profiles.length > 0 ? (
@@ -59,9 +58,39 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               <h4>no profiles found</h4>
             )}
           </div>
-
-          <button onClick={onPreclickHandler}>previous</button>
-          <button onClick={onNextClickHandler}>next</button>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <button
+              onClick={onPreclickHandler}
+              style={{
+                padding: ".5rem",
+                backgroundColor: "#17a2b8",
+                color: "#fff",
+                border: "none",
+                marginRight: "1rem",
+                width: "5rem",
+              }}
+            >
+              previous
+            </button>
+            <button
+              onClick={onNextClickHandler}
+              style={{
+                padding: ".5rem",
+                backgroundColor: "#17a2b8",
+                color: "#fff",
+                border: "none",
+                width: "5rem",
+              }}
+            >
+              next
+            </button>
+          </div>
         </Fragment>
       )}
     </Fragment>

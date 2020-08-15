@@ -2,7 +2,7 @@ const Profile = require("../model/profilemodel");
 
 exports.createprofile = async (req, res, next) => {
   const profileFields = {};
-  profileFields.userName = req.user.name;
+  profileFields.name = req.user.name;
   profileFields.user = req.user.id;
   if (req.body.city) profileFields.city = req.body.city;
   if (req.body.website) profileFields.website = req.body.website;
@@ -48,7 +48,7 @@ exports.getAllProfile = async (req, res, next) => {
   try {
     if (req.query.name) {
       const profiles = await Profile.find({
-        $text: { $search: req.query.name, $caseSensitive: false },
+        name: { $regex: new RegExp(req.query.name) },
       }).populate("user", ["name"]);
       res.status(200).json({
         status: "success",
