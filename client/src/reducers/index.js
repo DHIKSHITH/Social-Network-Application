@@ -4,6 +4,7 @@ import auth from "./auth";
 import gregister from "./gregister";
 import profile from "./profile";
 import post from "./post";
+import avatarRegister from "./avatarRegister";
 
 export default combineReducers({
   alert,
@@ -11,4 +12,5 @@ export default combineReducers({
   gregister,
   profile,
   post,
+  avatarRegister,
 });

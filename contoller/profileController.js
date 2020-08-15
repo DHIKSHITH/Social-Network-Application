@@ -49,7 +49,7 @@ exports.getAllProfile = async (req, res, next) => {
     if (req.query.name) {
       const profiles = await Profile.find({
         name: { $regex: new RegExp(req.query.name) },
-      }).populate("user", ["name"]);
+      }).populate("user", ["name", "avatar"]);
       res.status(200).json({
         status: "success",
         length: profiles.length,
@@ -62,7 +62,7 @@ exports.getAllProfile = async (req, res, next) => {
       const profiles = await Profile.find()
         .skip(skip)
         .limit(limit)
-        .populate("user", ["name"]);
+        .populate("user", ["name", "avatar"]);
       res.status(200).json({
         status: "success",
         length: profiles.length,
@@ -81,7 +81,7 @@ exports.getProfile = async (req, res, next) => {
   try {
     const profile = await Profile.findOne({
       user: req.params.user_id,
-    }).populate("user", ["name"]);
+    }).populate("user", ["name", "avatar"]);
     if (!profile) {
       return res.status(400).json({
         status: "theres no profile with this user",
@@ -105,7 +105,7 @@ exports.getMe = async (req, res, next) => {
   try {
     const profile = await Profile.findOne({
       user: req.user.id,
-    }).populate("user", ["name"]);
+    }).populate("user", ["name", "avatar"]);
     if (!profile) {
       return res.status(400).json({
         status: "theres no profile with this user",

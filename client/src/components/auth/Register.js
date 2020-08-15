@@ -2,18 +2,25 @@ import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
-import { register, Gregister } from "../../actions/auth";
+import { register, Gregister, avatarregister } from "../../actions/auth";
 import { GoogleLogin } from "react-google-login";
 import PropTypes from "prop-types";
 
 // import axios from "axios";
 
-const Register = ({ setAlert, register, isAuthenticated, Gregister }) => {
+const Register = ({
+  setAlert,
+  register,
+  isAuthenticated,
+  Gregister,
+  avatarregister,
+}) => {
   const [formData, setformData] = useState({
     name: "",
     email: "",
     password: "",
     passwordConfirm: "",
+    avatarRedirect: false,
   });
   const [googleData, setGoogleData] = useState({
     gname: null,
@@ -37,7 +44,9 @@ const Register = ({ setAlert, register, isAuthenticated, Gregister }) => {
     if (password !== passwordConfirm) {
       setAlert("password not match", "danger");
     } else {
-      register({ name, email, password, passwordConfirm });
+      setformData({ ...formData, avatarRedirect: true });
+      avatarregister(name, email, password, passwordConfirm);
+      // register({ name, email, password, passwordConfirm });
       //   const newUser = {
       //     name,
       //     email,
@@ -67,8 +76,11 @@ const Register = ({ setAlert, register, isAuthenticated, Gregister }) => {
     });
   }
 
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+  // if (isAuthenticated) {
+  //   return <Redirect to="/dashboard" />;
+  // }
+  if (formData.avatarRedirect) {
+    return <Redirect to="/avatar" />;
   }
   if (googleData.redirect) {
     return <Redirect to="/password" />;
@@ -151,6 +163,9 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, register, Gregister })(
-  Register
-);
+export default connect(mapStateToProps, {
+  setAlert,
+  register,
+  Gregister,
+  avatarregister,
+})(Register);

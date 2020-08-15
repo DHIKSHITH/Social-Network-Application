@@ -16,7 +16,7 @@ const Gregister = ({ register, setAlert, payload, isAuthenticated }) => {
   console.log(payload);
   const name = payload.payload.gname;
   const email = payload.payload.gemail;
-  const url = payload.payload.gurl;
+  const avatar = payload.payload.gurl;
 
   const onsubmit = (e) => {
     console.log(password);
@@ -24,7 +24,7 @@ const Gregister = ({ register, setAlert, payload, isAuthenticated }) => {
     if (password !== passwordConfirm) {
       setAlert("password not match", "danger");
     } else {
-      register({ name, email, password, passwordConfirm });
+      register({ name, email, avatar, password, passwordConfirm });
     }
   };
   if (isAuthenticated) {

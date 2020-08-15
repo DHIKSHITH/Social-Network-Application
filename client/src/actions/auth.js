@@ -10,6 +10,7 @@ import {
   LOGOUT,
   GREGISTER_SUCCESS,
   CLEAR_PROFILE,
+  AVATARREGISTER_SUCCESS,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -30,15 +31,20 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const register = ({ name, email, password, passwordConfirm }) => async (
-  dispatch
-) => {
+export const register = ({
+  name,
+  email,
+  avatar,
+  password,
+  passwordConfirm,
+}) => async (dispatch) => {
   try {
     const newUser = {
       name,
       email,
       password,
       passwordConfirm,
+      avatar,
     };
     const res = await axios.post("/api/v1/user/signup", newUser);
     dispatch({
@@ -67,6 +73,34 @@ export const Gregister = (gname, gemail, gurl) => async (dispatch) => {
     console.log(gname);
     dispatch({
       type: GREGISTER_SUCCESS,
+      payload: newUser,
+    });
+  } catch (err) {
+    console.log(err.response);
+    const errors = err.response.data.error;
+    if (errors) {
+      dispatch(setAlert(errors, "danger"));
+    }
+    dispatch({
+      type: REGISTER_FAIL,
+    });
+  }
+};
+export const avatarregister = (
+  name,
+  email,
+  password,
+  passwordConfirm
+) => async (dispatch) => {
+  try {
+    const newUser = {
+      name,
+      email,
+      password,
+      passwordConfirm,
+    };
+    dispatch({
+      type: AVATARREGISTER_SUCCESS,
       payload: newUser,
     });
   } catch (err) {

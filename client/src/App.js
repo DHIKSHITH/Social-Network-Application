@@ -16,6 +16,7 @@ import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profileDisplay/Profile";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
+import Avatar from "./components/auth/Avatar";
 
 //redux
 import { Provider } from "react-redux";
@@ -42,6 +43,7 @@ const App = () => {
             <Alert />
             <Switch>
               <Route exact path="/register" component={Register} />
+              <Route exact path="/avatar" component={Avatar} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/password" component={Gregister} />
               <Route exact path="/profiles" component={Profiles} />
