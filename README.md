@@ -15,3 +15,40 @@ This is a project i did when i was learning react by doing a course.
 5.As soon as the user likes or comments on the post. The user of that post will get a notification that who liked or commented the post.
 
 6.If the user wishes to delete the account the user can delete the account.
+
+
+## Quick Start
+
+```
+# create config.env file
+
+# add all these data in config.env file
+
+JWT_SECRET=
+JWT_EXPIRES_IN= 
+DATABASE_PASSWORD=
+DATABASE=mongodb+srv:
+DATABASE_LOCAL=mongodb:
+CLIENT_ID=
+ 
+```
+
+```bash
+# Install server dependencies
+npm install
+
+# Install client dependencies
+cd client
+npm install
+
+# Run both Express & React from root
+npm run dev
+
+# Build for production
+cd client
+npm run build
+```
+
+
+
+
