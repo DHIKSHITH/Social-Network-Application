@@ -1,8 +1,6 @@
 # campus-connector
 This is a small social network app that includes authentication,GoogleOauth, profiles and forum posts and Notifications when the user like or comment the post.
 
-This is a project i did when i was learning react by doing a course.
-
 # Features
 1.The user can Register and add their details of education and work experience.
 
