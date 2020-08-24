@@ -113,6 +113,32 @@ const profileschema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  private: {
+    type: Boolean,
+    default: false,
+  },
+  connections: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+      name: {
+        type: String,
+      },
+    },
+  ],
+  requests: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+      name: {
+        type: String,
+      },
+    },
+  ],
 });
 
 profileschema.index({ name: "text" });

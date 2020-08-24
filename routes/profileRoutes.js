@@ -31,7 +31,12 @@ profileRouter
 profileRouter
   .route("/education/:edu_id")
   .delete(authController.protect, profilecontroller.deleteEducation);
-
+profileRouter
+  .route("/request/:profile_id")
+  .post(authController.protect, profilecontroller.sendRequest);
+profileRouter
+  .route("/acceptRequest/:request_id")
+  .post(authController.protect, profilecontroller.acceptRequest);
 //education
 // profileRouter.route("/createEdu").post(educontroller.createedu);
 

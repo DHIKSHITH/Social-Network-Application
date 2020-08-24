@@ -28,40 +28,41 @@ const Gregister = ({ register, setAlert, payload, isAuthenticated }) => {
     }
   };
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to='/dashboard' />;
   }
   return (
     <Fragment>
-      <h1 className="large text-primary">Create a Password</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Hello hi {name}.Please create a password
+      <h1 className='large text-primary'>Create a Password</h1>
+      <p className='lead'>
+        <i className='fas fa-user'></i> Hello hi {name}.Please create a password
       </p>
       <form
-        className="form"
-        action="create-profile.html"
+        className='form'
+        action='create-profile.html'
         onSubmit={(e) => onsubmit(e)}
       >
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="password"
-            placeholder="Password"
-            name="password"
+            type='password'
+            placeholder='Password'
+            name='password'
             value={password}
             onChange={(e) => onchange(e)}
-            minLength="6"
+            minLength='6'
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="password"
-            placeholder="Confirm Password"
+            type='password'
+            placeholder='Confirm Password'
             value={passwordConfirm}
             onChange={(e) => onchange(e)}
-            name="passwordConfirm"
-            minLength="6"
+            name='passwordConfirm'
+            minLength='6'
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+
+        <input type='submit' className='btn btn-primary' value='Register' />
       </form>
     </Fragment>
   );

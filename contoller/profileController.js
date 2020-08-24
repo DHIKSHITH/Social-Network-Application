@@ -1,4 +1,6 @@
 const Profile = require("../model/profilemodel");
+const { post } = require("../app");
+const { connect } = require("mongoose");
 
 exports.createprofile = async (req, res, next) => {
   const profileFields = {};
@@ -8,6 +10,7 @@ exports.createprofile = async (req, res, next) => {
   if (req.body.website) profileFields.website = req.body.website;
   if (req.body.about) profileFields.about = req.body.about;
   if (req.body.status) profileFields.status = req.body.status;
+  if (req.body.private) profileFields.private = req.body.private;
   if (req.body.githubusername)
     profileFields.githubusername = req.body.githubusername;
   // Skills - Spilt into array
@@ -87,11 +90,24 @@ exports.getProfile = async (req, res, next) => {
         status: "theres no profile with this user",
       });
     }
-    res.status(200).json({
-      status: "success",
-      profile,
+    console.log(profile.connections);
+
+    if (
+      profile.private &&
+      profile.connections.filter(
+        (connection) => connection.user.toString() === req.user.id
+      ).length > 0
+    ) {
+      res.status(200).json({
+        status: "success",
+        profile,
+      });
+    }
+    return res.status(400).json({
+      status: "this profile is private pls send the request",
     });
   } catch (err) {
+    console.log(err);
     if (err.kind == "ObjectId") {
       return res.status(400).json({ msg: "profile not found" });
     }
@@ -220,6 +236,45 @@ exports.deleteEducation = async (req, res, next) => {
     res.status(200).json({
       profile,
       msg: "education deleted",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      msg: "server error",
+    });
+  }
+};
+
+exports.sendRequest = async (req, res, next) => {
+  try {
+    const profile = await Profile.findById(req.params.profile_id);
+    profile.requests.unshift({ user: req.user.id, name: req.user.name });
+    await profile.save();
+    res.status(200).json({
+      msg: "request sent",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      msg: "server error",
+    });
+  }
+};
+
+exports.acceptRequest = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    // console.log(profile);
+    const request = profile.requests.filter(
+      (request) => request._id.toString() === req.params.request_id
+    );
+    console.log(request);
+    const [{ user, name }] = request;
+
+    profile.connections.unshift({ user, name });
+    await profile.save();
+    res.status(200).json({
+      msg: "request accepted",
     });
   } catch (err) {
     console.log(err);
