@@ -4,6 +4,8 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
+  SEND_REQUEST,
+  ACCEPT_REQUEST,
 } from "../actions/types";
 
 const initialState = {
@@ -24,7 +26,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case GET_PROFILES:
-      return { ...state, profiles: payload, loading: false };
+      return { ...state, profiles: payload, profile: null, loading: false };
     case PROFILE_ERROR:
       return {
         ...state,
@@ -35,6 +37,17 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: null,
+        loading: false,
+      };
+    case SEND_REQUEST:
+      return {
+        ...state,
+        profile: null,
+        loading: false,
+      };
+    case ACCEPT_REQUEST:
+      return {
+        ...state,
         loading: false,
       };
     default:

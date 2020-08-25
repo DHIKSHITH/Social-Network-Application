@@ -1,6 +1,6 @@
 const Profile = require("../model/profilemodel");
 const { post } = require("../app");
-const { connect } = require("mongoose");
+const { connect, connection } = require("mongoose");
 
 exports.createprofile = async (req, res, next) => {
   const profileFields = {};
@@ -10,7 +10,8 @@ exports.createprofile = async (req, res, next) => {
   if (req.body.website) profileFields.website = req.body.website;
   if (req.body.about) profileFields.about = req.body.about;
   if (req.body.status) profileFields.status = req.body.status;
-  if (req.body.private) profileFields.private = req.body.private;
+  if (req.body.privateProfile)
+    profileFields.privateProfile = req.body.privateProfile;
   if (req.body.githubusername)
     profileFields.githubusername = req.body.githubusername;
   // Skills - Spilt into array
@@ -85,15 +86,26 @@ exports.getProfile = async (req, res, next) => {
     const profile = await Profile.findOne({
       user: req.params.user_id,
     }).populate("user", ["name", "avatar"]);
+    if (profile.user._id.toString() === req.user.id) {
+      res.status(200).json({
+        status: "success",
+        profile,
+      });
+    }
     if (!profile) {
       return res.status(400).json({
         status: "theres no profile with this user",
       });
     }
-    console.log(profile.connections);
+    if (!profile.privateProfile) {
+      res.status(200).json({
+        status: "success",
+        profile,
+      });
+    }
 
     if (
-      profile.private &&
+      profile.privateProfile &&
       profile.connections.filter(
         (connection) => connection.user.toString() === req.user.id
       ).length > 0
@@ -247,7 +259,7 @@ exports.deleteEducation = async (req, res, next) => {
 
 exports.sendRequest = async (req, res, next) => {
   try {
-    const profile = await Profile.findById(req.params.profile_id);
+    const profile = await Profile.findOne({ user: req.params.user_id });
     profile.requests.unshift({ user: req.user.id, name: req.user.name });
     await profile.save();
     res.status(200).json({
@@ -268,11 +280,25 @@ exports.acceptRequest = async (req, res, next) => {
     const request = profile.requests.filter(
       (request) => request._id.toString() === req.params.request_id
     );
-    console.log(request);
     const [{ user, name }] = request;
+    const requestedProfile = await Profile.findOne({ user: user });
 
+    if (
+      profile.connections.filter(
+        (connection) => connection.user.toString() === user
+      ).length > 0
+    ) {
+      console.log("hello");
+      return res.status(400).json({ msg: "request already accepted" });
+    }
     profile.connections.unshift({ user, name });
+    requestedProfile.notification.unshift({
+      post: user,
+      type: "accepted",
+      user: req.user.name,
+    });
     await profile.save();
+    await requestedProfile.save();
     res.status(200).json({
       msg: "request accepted",
     });

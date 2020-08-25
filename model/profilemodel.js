@@ -113,9 +113,8 @@ const profileschema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  private: {
+  privateProfile: {
     type: Boolean,
-    default: false,
   },
   connections: [
     {

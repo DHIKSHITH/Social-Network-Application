@@ -32,7 +32,7 @@ profileRouter
   .route("/education/:edu_id")
   .delete(authController.protect, profilecontroller.deleteEducation);
 profileRouter
-  .route("/request/:profile_id")
+  .route("/request/:user_id")
   .post(authController.protect, profilecontroller.sendRequest);
 profileRouter
   .route("/acceptRequest/:request_id")

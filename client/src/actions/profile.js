@@ -7,6 +7,8 @@ import {
   ACCOUNT_DELETE,
   GET_PROFILES,
   CLEAR_PROFILE,
+  SEND_REQUEST,
+  ACCEPT_REQUEST,
 } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -185,5 +187,47 @@ export const deleteAccount = () => async (dispatch) => {
         payload: { msg: err.response, status: err.response },
       });
     }
+  }
+};
+
+export const sendRequest = (id) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/api/v1/profile/request/${id}`);
+    dispatch({
+      type: SEND_REQUEST,
+      payload: res.data.msg,
+    });
+    dispatch(setAlert("request sent", "success"));
+  } catch (err) {
+    console.log(err.resonpse);
+    const errors = err.response;
+    if (errors) {
+      dispatch(setAlert(errors, "danger"));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response, status: err.response },
+    });
+  }
+};
+
+export const acceptRequest = (id) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/api/v1/profile/acceptRequest/${id}`);
+    dispatch({
+      type: ACCEPT_REQUEST,
+      payload: res.data.msg,
+    });
+    dispatch(setAlert("request sent", "success"));
+  } catch (err) {
+    console.log(err.response);
+    const errors = err.response;
+    if (errors) {
+      dispatch(setAlert(errors, "danger"));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response, status: err.response },
+    });
   }
 };
