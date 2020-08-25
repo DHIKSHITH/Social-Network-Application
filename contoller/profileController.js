@@ -260,6 +260,16 @@ exports.deleteEducation = async (req, res, next) => {
 exports.sendRequest = async (req, res, next) => {
   try {
     const profile = await Profile.findOne({ user: req.params.user_id });
+    if (
+      profile.requests.filter(
+        (request) => request.user.toString() === req.user.id.toString()
+      ).length > 0
+    ) {
+      console.log("hello");
+      return res.status(400).json({
+        msg: "request has already been sent",
+      });
+    }
     profile.requests.unshift({ user: req.user.id, name: req.user.name });
     await profile.save();
     res.status(200).json({
@@ -283,15 +293,15 @@ exports.acceptRequest = async (req, res, next) => {
     const [{ user, name }] = request;
     const requestedProfile = await Profile.findOne({ user: user });
 
-    if (
-      profile.connections.filter(
-        (connection) => connection.user.toString() === user
-      ).length > 0
-    ) {
-      console.log("hello");
+    const func = (connection) => {
+      return connection.user.toString() === user.toString();
+    };
+
+    if (profile.connections.filter(func).length > 0) {
       return res.status(400).json({ msg: "request already accepted" });
     }
     profile.connections.unshift({ user, name });
+
     requestedProfile.notification.unshift({
       post: user,
       type: "accepted",

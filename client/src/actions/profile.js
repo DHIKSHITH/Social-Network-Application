@@ -199,11 +199,8 @@ export const sendRequest = (id) => async (dispatch) => {
     });
     dispatch(setAlert("request sent", "success"));
   } catch (err) {
-    console.log(err.resonpse);
-    const errors = err.response;
-    if (errors) {
-      dispatch(setAlert(errors, "danger"));
-    }
+    dispatch(setAlert("request has already been sent", "danger"));
+
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response, status: err.response },
@@ -220,11 +217,8 @@ export const acceptRequest = (id) => async (dispatch) => {
     });
     dispatch(setAlert("request sent", "success"));
   } catch (err) {
-    console.log(err.response);
-    const errors = err.response;
-    if (errors) {
-      dispatch(setAlert(errors, "danger"));
-    }
+    dispatch(setAlert("request already accepted", "danger"));
+
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response, status: err.response },

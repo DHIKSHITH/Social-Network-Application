@@ -33,6 +33,13 @@ const Profile = ({
               sendRequest(match.params.id);
             }}
           >
+            <Link to='/profiles' className='btn btn-light'>
+              Back to Profiles
+            </Link>
+            <h1>
+              This profile is private...To view this profile please send a
+              request by clicking this below button
+            </h1>
             <button>request</button>
           </form>
         </div>

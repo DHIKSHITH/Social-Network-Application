@@ -10,9 +10,9 @@ export const DropdownItem = ({ notification, key }) => {
   return (
     <li className='dropdown'>
       <Dropdown.Item>
-        <Link
-          to={`/post/${notification.post}`}
-        >{`${notification.user} ${notification.type} your post`}</Link>
+        <Link to={`/post/${notification.post}`}>{`${notification.user} ${
+          notification.type
+        } your ${notification.type === "accepted" ? "request" : "post"}`}</Link>
       </Dropdown.Item>
     </li>
   );
