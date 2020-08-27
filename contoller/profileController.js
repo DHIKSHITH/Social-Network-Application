@@ -85,7 +85,9 @@ exports.getProfile = async (req, res, next) => {
   try {
     const profile = await Profile.findOne({
       user: req.params.user_id,
-    }).populate("user", ["name", "avatar"]);
+    })
+      .populate("user", ["name", "avatar"])
+      .select("-requests");
     if (profile.user._id.toString() === req.user.id) {
       res.status(200).json({
         status: "success",

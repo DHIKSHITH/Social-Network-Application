@@ -10,7 +10,7 @@ import RequestDropdownItem from "./DropdownItem";
 
 const NavBar = ({
   auth: { isAuthenticated, loading },
-  profile: { profile },
+  profile: { profile, currentProfile },
   logout,
 }) => {
   const authLinks = (
@@ -34,17 +34,19 @@ const NavBar = ({
           <Dropdown.Menu>
             <ul style={{ display: "flex", flexDirection: "column" }}>
               {!loading &&
-                profile !== null &&
-                profile.notification.map((noti) => (
+                currentProfile !== null &&
+                currentProfile.notification.map((noti) => (
                   <DropdownItem key={noti._id} notification={noti} />
                 ))}
             </ul>
           </Dropdown.Menu>
           <span>
             {!loading &&
-              profile !== null &&
-              profile.notification.length > 0 && (
-                <span className='noti-num'>{profile.notification.length}</span>
+              currentProfile !== null &&
+              currentProfile.notification.length > 0 && (
+                <span className='noti-num'>
+                  {currentProfile.notification.length}
+                </span>
               )}
           </span>
         </Dropdown>
@@ -56,16 +58,20 @@ const NavBar = ({
           <Dropdown.Menu>
             <ul style={{ display: "flex", flexDirection: "column" }}>
               {!loading &&
-                profile !== null &&
-                profile.requests.map((req) => (
+                currentProfile !== null &&
+                currentProfile.requests.map((req) => (
                   <RequestDropdownItem key={req._id} request={req} />
                 ))}
             </ul>
           </Dropdown.Menu>
           <span>
-            {!loading && profile !== null && profile.requests.length > 0 && (
-              <span className='noti-num'>{profile.requests.length}</span>
-            )}
+            {!loading &&
+              currentProfile !== null &&
+              currentProfile.requests.length > 0 && (
+                <span className='noti-num'>
+                  {currentProfile.requests.length}
+                </span>
+              )}
           </span>
         </Dropdown>
       </li>

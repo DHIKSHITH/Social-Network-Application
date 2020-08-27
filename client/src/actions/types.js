@@ -25,3 +25,4 @@ export const ADD_COMMENT = "ADD_COMMENT ";
 export const REMOVE_COMMENT = "REMOVE_COMMENT ";
 export const SEND_REQUEST = "SEND_REQUEST ";
 export const ACCEPT_REQUEST = "ACCEPT_REQUEST ";
+export const CURRENT_PROFILE = "CURRENT_PROFILE ";

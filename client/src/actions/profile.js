@@ -9,13 +9,14 @@ import {
   CLEAR_PROFILE,
   SEND_REQUEST,
   ACCEPT_REQUEST,
+  CURRENT_PROFILE,
 } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await axios.get(`/api/v1/profile/me`);
     dispatch({
-      type: GET_PROFILE,
+      type: CURRENT_PROFILE,
       payload: res.data.profile,
     });
   } catch (err) {

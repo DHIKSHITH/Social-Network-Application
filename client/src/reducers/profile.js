@@ -6,9 +6,13 @@ import {
   GET_PROFILES,
   SEND_REQUEST,
   ACCEPT_REQUEST,
+  CURRENT_PROFILE,
+  LOGOUT,
+  ACCOUNT_DELETE,
 } from "../actions/types";
 
 const initialState = {
+  currentProfile: null,
   profile: null,
   profiles: [],
   repos: [],
@@ -18,6 +22,13 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case CURRENT_PROFILE:
+      return {
+        ...state,
+        currentProfile: payload,
+        loading: false,
+        profile: payload,
+      };
     case GET_PROFILE:
     case UPDATE_PROFILE:
       return {
@@ -49,6 +60,20 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        profile: null,
+        profiles: [],
+        currentProfile: null,
+      };
+    case ACCOUNT_DELETE:
+      return {
+        ...state,
+        profile: null,
+        profiles: [],
+        currentProfile: null,
       };
     default:
       return state;
