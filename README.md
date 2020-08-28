@@ -1,4 +1,4 @@
-# campus-connector
+# Social Network Application
 This is a small social network app that includes authentication,GoogleOauth, profiles and forum posts and Notifications when the user like or comment the post.
 
 # Features
