@@ -102,22 +102,9 @@ const EditProfile = ({
             value={website}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            Could be your own or a company website
-          </small>
+          <small className='form-text'>Could be your own Portfolio</small>
         </div>
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Location'
-            name='location'
-            value={location}
-            onChange={(e) => onChange(e)}
-          />
-          <small className='form-text'>
-            City & state suggested (eg. Boston, MA)
-          </small>
-        </div>
+
         <div className='form-group'>
           <input
             type='text'
@@ -126,9 +113,7 @@ const EditProfile = ({
             value={city}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            City & state suggested (eg. Boston, MA)
-          </small>
+          <small className='form-text'>City</small>
         </div>
         <div className='form-group'>
           <input
@@ -175,6 +160,9 @@ const EditProfile = ({
             <option value='true'>Yes</option>
             <option value='false'>No</option>
           </select>
+          <small className='form-text'>
+            If yes the profile will be private.
+          </small>
         </div>
 
         <div className='my-2'>

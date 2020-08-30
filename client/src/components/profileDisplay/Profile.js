@@ -24,6 +24,15 @@ const Profile = ({
     <Fragment>
       {profile === null && loading ? (
         <Spinner />
+      ) : auth.user === null ? (
+        <Fragment>
+          <h1 className='large text-primary' style={{ textAlign: "center" }}>
+            Please Login
+          </h1>
+          <Link to='/login' className='btn btn-primary'>
+            Login
+          </Link>
+        </Fragment>
       ) : !loading && profile === null ? (
         <div>
           <form
@@ -36,11 +45,18 @@ const Profile = ({
             <Link to='/profiles' className='btn btn-light'>
               Back to Profiles
             </Link>
-            <h1>
+            <h1 className='large text-primary' style={{ textAlign: "center" }}>
+              {" "}
               This profile is private...To view this profile please send a
               request by clicking this below button
             </h1>
-            <button>request</button>
+
+            <button
+              className='btn btn-primary'
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              request
+            </button>
           </form>
         </div>
       ) : (
