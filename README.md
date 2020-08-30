@@ -15,21 +15,7 @@ This is a small social network app that includes authentication,GoogleOauth, pro
 6.If the user wishes to delete the account the user can delete the account.
 
 
-## Quick Start
 
-```
-# create config.env file
-
-# add all these data in config.env file
-
-JWT_SECRET=
-JWT_EXPIRES_IN= 
-DATABASE_PASSWORD=
-DATABASE=mongodb+srv:
-DATABASE_LOCAL=mongodb:
-CLIENT_ID=
- 
-```
 
 ```bash
 # Install server dependencies
