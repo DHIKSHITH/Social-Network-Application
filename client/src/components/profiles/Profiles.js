@@ -39,7 +39,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             <input
               type='text'
               class='search__input'
-              placeholder='Search by Full Name'
+              placeholder='Search by Full Name (use small letters)'
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
