@@ -30,16 +30,16 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
         <Spinner />
       ) : (
         <Fragment>
-          <h1 className="large text-primary">Developers</h1>
-          <p className="lead">
-            <i className="fab fa-connectdevelop"></i> Browse and connect with
-            developers
+          <h1 className='large text-primary'>Profiles</h1>
+          <p className='lead'>
+            <i className='fab fa-connectdevelop'></i> Browse and connect with
+            others
           </p>
-          <form class="search">
+          <form class='search'>
             <input
-              type="text"
-              class="search__input"
-              placeholder="Search by Full Name"
+              type='text'
+              class='search__input'
+              placeholder='Search by Full Name'
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
@@ -49,7 +49,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             onChange={(e) => setValue(e.target.value)}
             placeholder="Please enter the first name"
           ></input> */}
-          <div className="profiles">
+          <div className='profiles'>
             {profiles.length > 0 ? (
               profiles.map((profile) => (
                 <ProfileItem key={profile._id} profile={profile} />

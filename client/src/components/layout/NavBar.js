@@ -16,7 +16,7 @@ const NavBar = ({
   const authLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Developers</Link>
+        <Link to='/profiles'>Profiles</Link>
       </li>
       <li>
         <Link to='/posts'>Posts</Link>
@@ -86,7 +86,7 @@ const NavBar = ({
   const guestLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Developers</Link>
+        <Link to='/profiles'>Profiles</Link>
       </li>
       <li>
         <Link to='/register'>Register</Link>
@@ -100,7 +100,7 @@ const NavBar = ({
     <nav className='navbar bg-dark'>
       <h1>
         <Link to='/'>
-          <i className='fas fa-code'></i> DevConnector
+          <i className='fa fa-comment-o'></i> Social Network
         </Link>
       </h1>
       {!loading && (

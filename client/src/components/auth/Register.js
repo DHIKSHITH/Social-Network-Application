@@ -80,73 +80,69 @@ const Register = ({
   //   return <Redirect to="/dashboard" />;
   // }
   if (formData.avatarRedirect) {
-    return <Redirect to="/avatar" />;
+    return <Redirect to='/avatar' />;
   }
   if (googleData.redirect) {
-    return <Redirect to="/password" />;
+    return <Redirect to='/password' />;
   }
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Create Your Account
+      <h1 className='large text-primary'>Sign Up</h1>
+      <p className='lead'>
+        <i className='fas fa-user'></i> Create Your Account
       </p>
       <form
-        className="form"
-        action="create-profile.html"
+        className='form'
+        action='create-profile.html'
         onSubmit={(e) => onsubmit(e)}
       >
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="text"
-            placeholder="Name"
-            name="name"
+            type='text'
+            placeholder='Name'
+            name='name'
             onChange={(e) => onchange(e)}
             value={name}
             required
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
+            type='email'
+            placeholder='Email Address'
+            name='email'
             value={email}
             onChange={(e) => onchange(e)}
           />
-          <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="password"
-            placeholder="Password"
-            name="password"
+            type='password'
+            placeholder='Password'
+            name='password'
             value={password}
             onChange={(e) => onchange(e)}
-            minLength="6"
+            minLength='6'
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="password"
-            placeholder="Confirm Password"
+            type='password'
+            placeholder='Confirm Password'
             value={passwordConfirm}
             onChange={(e) => onchange(e)}
-            name="passwordConfirm"
-            minLength="6"
+            name='passwordConfirm'
+            minLength='6'
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input type='submit' className='btn btn-primary' value='Register' />
       </form>
-      <p className="my-1">
-        Already have an account? <Link to="/login">Sign In</Link>
+      <p className='my-1'>
+        Already have an account? <Link to='/login'>Sign In</Link>
       </p>
       <GoogleLogin
-        clientId="317821198108-j5a7urpncd2f0bdbiadhv5oe17smpcrd.apps.googleusercontent.com"
-        buttonText="Sign up with Google"
+        clientId='317821198108-j5a7urpncd2f0bdbiadhv5oe17smpcrd.apps.googleusercontent.com'
+        buttonText='Sign up with Google'
         onSuccess={onSignIn}
         cookiePolicy={"single_host_origin"}
       />
