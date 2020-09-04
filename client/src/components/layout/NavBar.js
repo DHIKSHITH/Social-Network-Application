@@ -97,7 +97,7 @@ const NavBar = ({
     </ul>
   );
   return (
-    <nav className='navbar bg-dark'>
+    <nav className='navbar bg-dark '>
       <h1>
         <Link to='/'>
           <i className='fa fa-comment-o'></i> Social Network

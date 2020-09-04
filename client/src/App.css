@@ -499,7 +499,7 @@ button {
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
-    margin-top: 8rem;
+    margin-top: 10.5rem;
   }
 
   .hide-sm {
@@ -526,6 +526,8 @@ button {
   }
 
   .navbar ul {
+    display: flex;
+    flex-wrap: wrap;
     text-align: center;
     justify-content: center;
   }
