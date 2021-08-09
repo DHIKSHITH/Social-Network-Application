@@ -216,7 +216,7 @@ export const acceptRequest = (id) => async (dispatch) => {
       type: ACCEPT_REQUEST,
       payload: res.data.msg,
     });
-    dispatch(setAlert("request sent", "success"));
+    dispatch(setAlert("Request Accepted", "success"));
   } catch (err) {
     dispatch(setAlert("request already accepted", "danger"));
 

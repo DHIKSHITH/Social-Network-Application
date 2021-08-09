@@ -100,7 +100,7 @@ const NavBar = ({
     <nav className='navbar bg-dark '>
       <h1>
         <Link to='/'>
-          <i className='fa fa-comment-o'></i> Social Network
+          <i className='fa fa-comment-o'></i> Dev Connector
         </Link>
       </h1>
       {!loading && (
